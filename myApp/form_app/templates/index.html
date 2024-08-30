@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Contact list</h1>
+<ol>
+    {% for person in contact %}
+    <li>
+        <a href="{% url 'update' person.id %}">
+        {{ person }}
+        </a>
+        {{ person.last_name }}
+    </li>
+    {% endfor %}
+</ol>
+</body>
+</html>
