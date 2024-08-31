@@ -16,6 +16,6 @@ class MyModel(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(MyModel, on_delete=models.CASCADE, null=True)
-    address = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
