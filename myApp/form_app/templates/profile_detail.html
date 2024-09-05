@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ contact.first_name }} details </h1>
+    <p>Lastname: {{ contact.last_name }}</p>
+    <p>Email: {{ contact.email }}</p>
+    <p>State: {{ contact.state }}</p>
+
+<h2>Leave your feedback:</h2>
+<form method="post" action="{% url 'detail' contact.pk %}">
+    {% csrf_token %}
+    {{ feedback_form.as_p }}
+    <button type="submit">Submit Feedback</button>
+</form>
+<ol>
+    {% for feedback in feedback %}
+    <li>
+        {{ feedback.text_area }}
+    </li>
+    {% endfor %}
+</ol>
+
+
+</body>
+</html>

@@ -12,9 +12,18 @@
         <a href="{% url 'update' person.id %}">
         {{ person }}
         </a>
-        {{ person.last_name }}
+
+        {# <a href="{% url 'detail' contact.pk %}"> #}
+            {{ person.last_name }}
+        </a>
     </li>
     {% endfor %}
 </ol>
+
+<!--<ol>-->
+<!--    {% for person in contact %}-->
+<!--    <li>{{ person.first_name }}</li>-->
+<!--</ol>-->
+<!--    {% endfor %}-->
 </body>
 </html>

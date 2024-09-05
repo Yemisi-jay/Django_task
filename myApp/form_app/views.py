@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, FormView
 
-from .forms import MyForm, DataUpdateForm, NameUpdateForm, ProfileUpdateForm
-from .models import MyModel, Profile
+from .forms import MyForm, DataUpdateForm, NameUpdateForm, ProfileUpdateForm, FeedbackForm
+from .models import MyModel, Profile, Feedback
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
@@ -90,3 +91,45 @@ class FormUpdateView(UpdateView):
         else:
             profile = Profile.objects.create(user=self.object)
             return profile
+
+
+class ProfileDetailView(DetailView):
+    model = MyModel
+    template_name = 'profile_detail.html'
+    context_object_name = 'contact'
+
+    # def get_forms(self):
+    #     feedback_form = FeedbackForm
+    #     return feedback_form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['feedback_form'] = FeedbackForm()
+        context['feedback'] = Feedback.objects.all()
+        # user_title = "my title"
+        # blogs = Blog.objects.filter(title=user_title)
+        # first_blog_post = blogs.first()
+        # last_blog_post = blogs.last()
+        # latest_blog_post = blogs.latest('id')
+        # http://localhost:8000/index?idx=23
+        return context
+
+    def post(self, request, *args, **kwargs):
+        contact = self.get_object()
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('detail', contact.pk)
+        else:
+            context = self.get_context_data(feedback_form=form)
+            return self.render_to_response(context)
+
+
+# class ListObjectView(ListView):
+#     queryset = MyModel.objects.all()
+#     template_name = 'profile_detail'
+#     context_object_name = 'contact'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         return context

@@ -1,5 +1,5 @@
 from django import forms
-from .models import MyModel, Profile
+from .models import MyModel, Profile, Feedback
 
 
 class MyForm(forms.ModelForm):
@@ -26,3 +26,9 @@ class NameUpdateForm(forms.ModelForm):
     class Meta:
         model = MyModel
         fields = ['first_name', 'last_name']
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['text_area']

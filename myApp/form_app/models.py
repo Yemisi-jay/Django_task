@@ -19,3 +19,11 @@ class Profile(models.Model):
     address = models.CharField(max_length=50, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(MyModel, on_delete=models.CASCADE, null=True)
+    text_area = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f'Feedback by{self.user} on {self.text_area}'
